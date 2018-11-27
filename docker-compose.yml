@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: polr_db
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: yoursql_db_pa55word
+      MYSQL_DATABASE: polr
+      MYSQL_USER: polruser
+      MYSQL_PASSWORD: polrpa55
+    ports:
+      - "9906:3306"
+  web:
+    build: .
+    container_name: polr_web
+    depends_on:
+      - db
+    ports:
+      - "8100:80"
+    stdin_open: true
+    tty: true
